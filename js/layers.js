@@ -145,6 +145,45 @@ addLayer("low", {
     		description: "bonus<sup>1</sup> -> bonus<sup>1.1</sup> on return.",
     		cost: new Decimal(2),
         },
+       13: {
+			title: "Automation",
+    		description: "unlock automation side.",
+    		cost: new Decimal(5),
+        },
      }
 })
 
+
+addLayer("ab", {
+    startData() { return {
+        unlocked: true,
+    }},
+    color: "#C0C0C0",
+    symbol: "⚙",
+    row: "side",
+    position: 0,
+    name:"Autobuyers",
+    tooltip: "Automation",
+    layerShown() {return true},
+    tabFormat: [["display-text",
+    function() { return '<h2>Automation</h2>' }], "clickables"],
+    clickables: {
+        13: {
+            title: "Zero Upgrades",
+            display(){
+                let text = "Locked"
+                if ((hasMilestone('one', 5)) && (!(player.zero.autobuyupgrades))) text = "Off"
+                if (hasMilestone('one', 5) && player.zero.autobuyupgrades) text = "On"
+                return text
+            },
+            unlocked() {return hasMilestone('one', 3)},
+            canClick() {return hasMilestone('one', 5)},
+            onClick() { player.zero.autobuyupgrades = !player.zero.autobuyupgrades },
+            style: {"background-color"(){
+                let color = "#666666"
+                if (player.zero.autobuyupgrades) color = "#808080"
+                return color
+            }},
+        },
+    },
+})
