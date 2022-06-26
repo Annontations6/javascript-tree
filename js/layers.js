@@ -6,7 +6,7 @@ addLayer("r", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#808080",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "return points", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -15,6 +15,7 @@ addLayer("r", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('c', 11)) mult = mult.times(player.c.points.sqrt())
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -32,7 +33,7 @@ addLayer("c", {
         unlocked: true,
 		points: new Decimal(0),
     }},
-    color: "#4BDC13",
+    color: "#8C8173",
     requires: new Decimal(50), // Can be a function that takes requirement increases into account
     resource: "const points", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
@@ -41,11 +42,12 @@ addLayer("c", {
     exponent: 0.7, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-        if (hasUpgrade('c', 11)) mult = mult.times(player.c.points.sqrt())
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
-        return new Decimal(1)
+        exp = new Decimal(1)
+        if (hasUpgrade('c', 12)) exp = exp.add(0.03)
+        return exp
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
@@ -54,6 +56,11 @@ addLayer("c", {
 			title: "Sqrt product for return points",
     		description: "get mulitipler for square roots to const.",
     		cost: new Decimal(2),
+        },
+       12: {
+			title: "Const expontent by 0.03",
+    		description: "get pow pow",
+    		cost: new Decimal(10),
         },
     },
 })
