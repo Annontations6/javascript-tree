@@ -12,7 +12,7 @@ addLayer("r", {
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.5, // Prestige currency exponent
+    exponent: 0.525, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('c', 11)) mult = mult.times(player.c.points.sqrt())
@@ -26,6 +26,11 @@ addLayer("r", {
      upgrades: {
 		 11: {
 			title: "Triple gain",
+    		description: "OuO x3<sup>0</sup> -> x3<sup>1</sup> uses for gain.",
+    		cost: new Decimal(20),
+        },
+       12: {
+			title: "TU",
     		description: "OuO x3<sup>0</sup> -> x3<sup>1</sup> uses for gain.",
     		cost: new Decimal(20),
         },
@@ -68,6 +73,16 @@ addLayer("c", {
 			title: "Const expontent by 0.03",
     		description: "get pow pow",
     		cost: new Decimal(10),
+        },
+       13: {
+			title: "Sqrt product for points",
+    		description: "get mulitipler for square roots to const.",
+    		cost: new Decimal(25),
+        },
+       14: {
+			title: "Wowowoowowowowo",
+    		description: "Scalled for double gain.",
+    		cost: new Decimal(100),
         },
     },
 })
