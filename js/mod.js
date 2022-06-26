@@ -50,7 +50,9 @@ function getPointGen() {
   if (hasUpgrade('r', 15)) gain = gain.times(3)
   if (hasUpgrade('c', 15)) gain = gain.times(10)
   if (hasUpgrade('r', 21)) gain = gain.times(player.c.points.log10())
+  if (hasUpgrade('r', 22)) gain = gain.times(9)
   if (hasUpgrade('low', 11)) gain = gain.times(2)
+  if (hasUpgrade('upp', 11)) gain = gain.times(7)
   
 	return gain
 }

@@ -17,8 +17,10 @@ addLayer("r", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('c', 11)) mult = mult.times(player.c.points.sqrt())
+        if (hasUpgrade('low', 14)) mult = mult.times(6)
+        if (hasUpgrade('low', 21)) mult = mult.times(6)
         return mult
-    },
+       },
     gainExp() { // Calculate the exponent on main currency from bonuses
         exp = new Decimal(1)
         if (hasUpgrade('low', 12)) exp = exp.add(0.1)
@@ -95,6 +97,7 @@ addLayer("c", {
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         if (hasUpgrade('r', 11)) mult = mult.times(4)
+        if (hasUpgrade('upp', 12)) mult = mult.times(5)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -104,6 +107,16 @@ addLayer("c", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
+  automate(){
+        // UPGRADES
+        if (player.c.autobuyupgrades && hasUpgrade('low', 15)) {
+            buyUpgrade(this.layer, 11)
+            buyUpgrade(this.layer, 12)
+            buyUpgrade(this.layer, 13)
+            buyUpgrade(this.layer, 14)
+            buyUpgrade(this.layer, 15)
+        }
+    },
 	   upgrades: {
 		 11: {
 			title: "Sqrt product for return points",
@@ -181,7 +194,12 @@ addLayer("low", {
        15: {
 			title: "Automation Const",
     		description: "unlock auto for constant upgrades.",
-    		cost: new Decimal(45),
+    		cost: new Decimal(345),
+        },
+       21: {
+			title: "Return Power II",
+    		description: "gain mulitipler return for 6.",
+    		cost: new Decimal(900),
         },
      },
   milestones: {
@@ -210,7 +228,7 @@ addLayer("upp", {
     requires: new Decimal(1e7), // Can be a function that takes requirement increases into account
     resource: "uppercase points", // Name of prestige currency
     baseResource: "return points", // Name of resource prestige is based on
-    baseAmount() {return player.c.points}, // Get the current amount of baseResource
+    baseAmount() {return player.r.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.6, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -227,6 +245,11 @@ addLayer("upp", {
 			title: "x7 gain",
     		description: "OuO x7<sup>0</sup> -> x7<sup>1</sup> uses for gain.",
     		cost: new Decimal(2),
+        },
+       12: {
+			title: "Const Power",
+    		description: "x5 const power",
+    		cost: new Decimal(9),
         },
      }
 })
