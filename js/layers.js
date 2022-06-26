@@ -154,7 +154,7 @@ addLayer("low", {
 })
 
 
-addLayer("ab", {
+addLayer("auto", {
     startData() { return {
         unlocked: true,
     }},
@@ -164,24 +164,24 @@ addLayer("ab", {
     position: 0,
     name:"Autobuyers",
     tooltip: "Automation",
-    layerShown() {return true},
+    layerShown() {return hasUpgrade('low', 13)},
     tabFormat: [["display-text",
     function() { return '<h2>Automation</h2>' }], "clickables"],
     clickables: {
         13: {
-            title: "Zero Upgrades",
+            title: "Return Upgrades",
             display(){
                 let text = "Locked"
-                if ((hasMilestone('one', 5)) && (!(player.zero.autobuyupgrades))) text = "Off"
-                if (hasMilestone('one', 5) && player.zero.autobuyupgrades) text = "On"
+                if ((hasUpgrade('low', 13)) && (!(player.r.autobuyupgrades))) text = "Off"
+                if (hasUpgrade('low', 13) && player.r.autobuyupgrades) text = "On"
                 return text
             },
-            unlocked() {return hasMilestone('one', 3)},
-            canClick() {return hasMilestone('one', 5)},
-            onClick() { player.zero.autobuyupgrades = !player.zero.autobuyupgrades },
+            unlocked() {return hasUpgrade('low', 13)},
+            canClick() {return hasUpgrade('low', 13)},
+            onClick() { player.r.autobuyupgrades = !player.r.autobuyupgrades },
             style: {"background-color"(){
                 let color = "#666666"
-                if (player.zero.autobuyupgrades) color = "#808080"
+                if (player.r.autobuyupgrades) color = "#808080"
                 return color
             }},
         },
