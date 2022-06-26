@@ -4,6 +4,7 @@ addLayer("r", {
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: true,
+        autobuyupgrades: false,
 		points: new Decimal(0),
     }},
     color: "#808080",
@@ -25,6 +26,16 @@ addLayer("r", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
+  automate(){
+        // UPGRADES
+        if (player.r.autobuyupgrades && hasUpgrade('low', 13)) {
+            buyUpgrade(this.layer, 11)
+            buyUpgrade(this.layer, 12)
+            buyUpgrade(this.layer, 13)
+            buyUpgrade(this.layer, 14)
+            buyUpgrade(this.layer, 15)
+        }
+    },
      upgrades: {
 		 11: {
 			title: "Triple gain",
@@ -48,6 +59,11 @@ addLayer("r", {
         },
        15: {
 			title: "Triple gain II",
+    		description: "OuO x3<sup>0</sup> -> x3<sup>1</sup> uses for gain.",
+    		cost: new Decimal(4e4),
+        },
+       21: {
+			title: "",
     		description: "OuO x3<sup>0</sup> -> x3<sup>1</sup> uses for gain.",
     		cost: new Decimal(4e4),
         },
