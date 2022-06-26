@@ -22,7 +22,14 @@ addLayer("r", {
         return new Decimal(1)
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
-    layerShown(){return true}
+    layerShown(){return true},
+     upgrades: {
+		 11: {
+			title: "Triple gain",
+    		description: "OuO x3<sup>0</sup> -> x3<sup>1</sup> uses for gain.",
+    		cost: new Decimal(20),
+        },
+    },
 })
 
 addLayer("c", {
