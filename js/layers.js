@@ -34,6 +34,8 @@ addLayer("r", {
             buyUpgrade(this.layer, 13)
             buyUpgrade(this.layer, 14)
             buyUpgrade(this.layer, 15)
+            buyUpgrade(this.layer, 21)
+            buyUpgrade(this.layer, 22)
         }
     },
      upgrades: {
@@ -176,7 +178,24 @@ addLayer("low", {
     		description: "gain mulitipler return for 6.",
     		cost: new Decimal(45),
         },
-     }
+       15: {
+			title: "Automation Const",
+    		description: "unlock auto for constant upgrades.",
+    		cost: new Decimal(45),
+        },
+     },
+  milestones: {
+    0: {
+        requirementDescription: "1,000 lowercase",
+        effectDescription: "Unlock new layer.",
+        done() { return player.low.points.gte(1e3) }
+    },
+    1: {
+        requirementDescription: "Coming soon...",
+        effectDescription: "cotent coming soon.",
+        done() { return false }
+    }
+}
 })
 
 addLayer("upp", {
@@ -227,7 +246,7 @@ addLayer("auto", {
     tabFormat: [["display-text",
     function() { return '<h2>Automation</h2>' }], "clickables"],
     clickables: {
-        13: {
+        11: {
             title: "Return Upgrades",
             display(){
                 let text = "Locked"
@@ -238,6 +257,23 @@ addLayer("auto", {
             unlocked() {return hasUpgrade('low', 13)},
             canClick() {return hasUpgrade('low', 13)},
             onClick() { player.r.autobuyupgrades = !player.r.autobuyupgrades },
+            style: {"background-color"(){
+                let color = "#666666"
+                if (player.r.autobuyupgrades) color = "#808080"
+                return color
+            }},
+        },
+      12: {
+            title: "Const Upgrades",
+            display(){
+                let text = "Locked"
+                if ((hasUpgrade('low', 15)) && (!(player.c.autobuyupgrades))) text = "Off"
+                if (hasUpgrade('low', 15) && player.c.autobuyupgrades) text = "On"
+                return text
+            },
+            unlocked() {return hasUpgrade('low', 13)},
+            canClick() {return hasUpgrade('low', 15)},
+            onClick() { player.c.autobuyupgrades = !player.c.autobuyupgrades },
             style: {"background-color"(){
                 let color = "#666666"
                 if (player.r.autobuyupgrades) color = "#808080"
