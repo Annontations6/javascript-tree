@@ -30,7 +30,17 @@ addLayer("r", {
     		cost: new Decimal(20),
         },
        12: {
-			title: "TU",
+			title: "x4 gain OuO",
+    		description: "I DO SO GET HIGH!",
+    		cost: new Decimal(120),
+        },
+       13: {
+			title: "Const exponent by 0.02",
+    		description: "alsos is good?",
+    		cost: new Decimal(900),
+        },
+       14: {
+			title: "Triple gain",
     		description: "OuO x3<sup>0</sup> -> x3<sup>1</sup> uses for gain.",
     		cost: new Decimal(20),
         },
@@ -54,6 +64,7 @@ addLayer("c", {
     exponent: 0.7, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade('r', 11)) mult = mult.times(4)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
