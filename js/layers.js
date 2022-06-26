@@ -63,9 +63,14 @@ addLayer("r", {
     		cost: new Decimal(4e4),
         },
        21: {
-			title: "",
-    		description: "OuO x3<sup>0</sup> -> x3<sup>1</sup> uses for gain.",
-    		cost: new Decimal(4e4),
+			title: "Const Logratrim",
+    		description: "use betta formula. log<sub>10</sub>(const)",
+    		cost: new Decimal(1e6),
+        },
+       22: {
+			title: "Base 3",
+    		description: "gain for x9 and unlock new layer.",
+    		cost: new Decimal(5e6),
         },
     },
 })
@@ -165,6 +170,44 @@ addLayer("low", {
 			title: "Automation",
     		description: "unlock automation side.",
     		cost: new Decimal(5),
+        },
+       14: {
+			title: "Return Power",
+    		description: "gain mulitipler return for 6.",
+    		cost: new Decimal(45),
+        },
+     }
+})
+
+addLayer("upp", {
+    name: "uppercase", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "u", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return {
+        unlocked: true,
+		points: new Decimal(0),
+    }},
+    color: "#74A659",
+    requires: new Decimal(1e7), // Can be a function that takes requirement increases into account
+    resource: "uppercase points", // Name of prestige currency
+    baseResource: "return points", // Name of resource prestige is based on
+    baseAmount() {return player.c.points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 0.6, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+    layerShown(){return hasUpgrade('r', 22)},
+     upgrades: {
+		 11: {
+			title: "x7 gain",
+    		description: "OuO x7<sup>0</sup> -> x7<sup>1</sup> uses for gain.",
+    		cost: new Decimal(2),
         },
      }
 })
